@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "ca4deaab-bd4d-46f4-ad2f-8d0a68f263fc",
+		"name": "Prueba QA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Photos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();\r",
+							"//Caso de prueba numero uno, existencia de los datos\r",
+							"pm.test(\"Data integrity\" ,function () {\r",
+							"    _.each (response, (item) => {\r",
+							"    pm.expect(item).to.have.property(\"albumId\");\r",
+							"    pm.expect(item).to.have.property(\"id\");\r",
+							"    pm.expect(item).to.have.property(\"title\");\r",
+							"    pm.expect(item).to.have.property(\"url\");\r",
+							"    pm.expect(item).to.have.property(\"thumbnailUrl\");\r",
+							"    \r",
+							"     });\r",
+							"    \r",
+							"});\r",
+							"//Caso de prueba numero dos, los datos no esten vacios\r",
+							"pm.test(\"Non null data\" ,function () {\r",
+							"    _.each (response, (item) => {\r",
+							"    pm.expect(response).to.not.be.null;\r",
+							"    pm.expect(item.albumId).to.not.be.null;\r",
+							"    pm.expect(item.id).to.not.be.null;\r",
+							"    pm.expect(item.title).to.not.be.null;\r",
+							"    pm.expect(item.url).to.not.be.null;\r",
+							"    pm.expect(item.thumbnailUrl).to.not.be.null;\r",
+							"\r",
+							"     });\r",
+							"    \r",
+							"});\r",
+							"//Caso de prueba numero tres, el tipo de dato sea correcto\r",
+							"pm.test(\"Data type\" ,function () {\r",
+							"    _.each (response, (item) => {\r",
+							"    pm.expect(response).to.be.an(\"array\");    \r",
+							"    pm.expect(item.albumId).to.be.a(\"number\");\r",
+							"    pm.expect(item.id).to.be.a(\"number\");\r",
+							"    pm.expect(item.title).to.be.a(\"String\");\r",
+							"    pm.expect(item.url).to.be.a(\"String\");\r",
+							"    pm.expect(item.thumbnailUrl).to.be.a(\"String\");\r",
+							"\r",
+							"     });\r",
+							"    \r",
+							"});\r",
+							"//Caso de prueba numero cuatro, la cantidad de elementos dentro del array sea correcta\r",
+							"pm.test(\"Quantity of elements\" ,function () {\r",
+							"       let lengthArray = JSON.stringify(response.length);\r",
+							"       pm.expect(pm.environment.get(\"photo_number\")).to.equal(lengthArray); \r",
+							"       console.log(\"Quantity: \"+ lengthArray);    \r",
+							"    });\r",
+							"    \r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/photos/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"photos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();\r",
+							"//Caso de prueba numero uno, existencia de los datos\r",
+							"pm.test(\"Data integrity\" ,function () {\r",
+							"    _.each (response, (item) => {\r",
+							"    pm.expect(item).to.have.property(\"userId\");\r",
+							"    pm.expect(item).to.have.property(\"id\");\r",
+							"    pm.expect(item).to.have.property(\"title\");\r",
+							"    pm.expect(item).to.have.property(\"body\");\r",
+							"    \r",
+							"     });\r",
+							"    \r",
+							"});\r",
+							"//Caso de prueba numero dos, los datos no esten vacios\r",
+							"pm.test(\"Non null data\" ,function () {\r",
+							"    _.each (response, (item) => {\r",
+							"    pm.expect(response).to.not.be.null;\r",
+							"    pm.expect(item.userId).to.not.be.null;\r",
+							"    pm.expect(item.id).to.not.be.null;\r",
+							"    pm.expect(item.title).to.not.be.null;\r",
+							"    pm.expect(item.body).to.not.be.null;\r",
+							"\r",
+							"    });\r",
+							"    \r",
+							"});\r",
+							"//Caso de prueba numero tres, el tipo de dato sea correcto\r",
+							"pm.test(\"Data type\" ,function () {\r",
+							"    _.each (response, (item) => {\r",
+							"    pm.expect(response).to.be.an(\"array\");    \r",
+							"    pm.expect(item.userId).to.be.a(\"number\");\r",
+							"    pm.expect(item.id).to.be.a(\"number\");\r",
+							"    pm.expect(item.title).to.be.a(\"String\");\r",
+							"    pm.expect(item.body).to.be.a(\"String\");\r",
+							"\r",
+							"    });\r",
+							"    \r",
+							"});\r",
+							"//Caso de prueba numero cuatro, la cantidad de elementos dentro del array sea correcta\r",
+							"pm.test(\"Quantity of elements\" ,function () {\r",
+							"       let lengthArray = JSON.stringify(response.length);\r",
+							"       pm.expect(pm.environment.get(\"posts_number\")).to.equal(lengthArray); \r",
+							"       console.log(\"Quantity: \"+ lengthArray);    \r",
+							"    });\r",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/posts",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var response = pm.response.json();\r",
+							"//Caso de prueba numero uno, existencia de los datos\r",
+							"pm.test(\"Data integrity\" ,function () {\r",
+							"    _.each (response, (item) => {\r",
+							"    pm.expect(item).to.have.property(\"id\");\r",
+							"    pm.expect(item).to.have.property(\"name\");\r",
+							"    pm.expect(item).to.have.property(\"username\");\r",
+							"    pm.expect(item).to.have.property(\"email\");\r",
+							"    pm.expect(item).to.have.property(\"address\");\r",
+							"    pm.expect(item).to.have.property(\"phone\");\r",
+							"    pm.expect(item).to.have.property(\"website\");\r",
+							"    pm.expect(item).to.have.property(\"company\");\r",
+							"\r",
+							"    pm.expect(item.address).to.have.property(\"street\");\r",
+							"    pm.expect(item.address).to.have.property(\"suite\");\r",
+							"    pm.expect(item.address).to.have.property(\"city\");\r",
+							"    pm.expect(item.address).to.have.property(\"zipcode\");\r",
+							"    pm.expect(item.address).to.have.property(\"geo\");\r",
+							"    pm.expect(item.address.geo).to.have.property(\"lat\");\r",
+							"    pm.expect(item.address.geo).to.have.property(\"lng\");\r",
+							"\r",
+							"    \r",
+							"    pm.expect(item.company).to.have.property(\"name\");\r",
+							"    pm.expect(item.company).to.have.property(\"catchPhrase\");\r",
+							"    pm.expect(item.company).to.have.property(\"bs\");\r",
+							"    \r",
+							"     });\r",
+							"    \r",
+							"});\r",
+							"//Caso de prueba numero dos, los datos no esten vacios\r",
+							"pm.test(\"Non null data\" ,function () {\r",
+							"    _.each (response, (item) => {\r",
+							"        \r",
+							"    pm.expect(response).to.not.be.null;\r",
+							"    pm.expect(item.id).to.not.be.null;\r",
+							"    pm.expect(item.name).to.not.be.null;\r",
+							"    pm.expect(item.username).to.not.be.null;\r",
+							"    pm.expect(item.email).to.not.be.null;\r",
+							"    pm.expect(item.address).to.not.be.null;\r",
+							"    pm.expect(item.phone).to.not.be.null;\r",
+							"    pm.expect(item.website).to.not.be.null;\r",
+							"    pm.expect(item.company).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(item.address.street).to.not.be.null;\r",
+							"    pm.expect(item.address.suite).to.not.be.null;\r",
+							"    pm.expect(item.address.city).to.not.be.null;\r",
+							"    pm.expect(item.address.zipcode).to.not.be.null;\r",
+							"    pm.expect(item.address.geo).to.not.be.null;\r",
+							"    pm.expect(item.address.geo.lat).to.not.be.null;\r",
+							"    pm.expect(item.address.geo.lng).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(item.company.name).to.not.be.null;\r",
+							"    pm.expect(item.company.catchPhrase).to.not.be.null;\r",
+							"    pm.expect(item.company.bs).to.not.be.null;\r",
+							"\r",
+							"    });\r",
+							"    \r",
+							"});\r",
+							"//Caso de prueba numero tres, el tipo de dato sea correcto\r",
+							"pm.test(\"Data type\" ,function () {\r",
+							"    _.each (response, (item) => {\r",
+							"    pm.expect(response).to.be.an(\"array\")\r",
+							"    pm.expect(item.id).to.be.an(\"number\")\r",
+							"    pm.expect(item.name).to.be.an(\"String\")\r",
+							"    pm.expect(item.username).to.be.an(\"String\")\r",
+							"    pm.expect(item.email).to.be.an(\"String\")\r",
+							"    pm.expect(item.address).to.be.an(\"object\")\r",
+							"    pm.expect(item.phone).to.be.an(\"String\")\r",
+							"    pm.expect(item.website).to.be.an(\"String\")\r",
+							"    pm.expect(item.company).to.be.an(\"object\")\r",
+							"\r",
+							"    pm.expect(item.address.street).to.be.an(\"String\")\r",
+							"    pm.expect(item.address.suite).to.be.an(\"String\")\r",
+							"    pm.expect(item.address.city).to.be.an(\"String\")\r",
+							"    pm.expect(item.address.zipcode).to.be.an(\"String\")\r",
+							"    pm.expect(item.address.geo).to.be.an(\"object\")\r",
+							"    pm.expect(item.address.geo.lat).to.be.an(\"String\")\r",
+							"    pm.expect(item.address.geo.lng).to.be.an(\"String\")\r",
+							"\r",
+							"    pm.expect(item.company.name).to.be.an(\"String\")\r",
+							"    pm.expect(item.company.catchPhrase).to.be.an(\"String\")\r",
+							"    pm.expect(item.company.bs).to.be.an(\"String\")\r",
+							"\r",
+							"    });\r",
+							"    \r",
+							"});\r",
+							"//Caso de prueba numero cuatro, la cantidad de elementos dentro del array sea correcta\r",
+							"pm.test(\"Quantity of elements\" ,function () {\r",
+							"       let lengthArray = JSON.stringify(response.length);\r",
+							"       pm.expect(pm.environment.get(\"user_number\")).to.equal(lengthArray); \r",
+							"       console.log(\"Quantity: \"+ lengthArray);    \r",
+							"    });\r",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"//Caso de prueba numero Cinco, existencia de los datos",
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"//Caso de prueba numero seis, existencia de los datos",
+					"pm.test(\"Response time is less than 500ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(500);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "https://jsonplaceholder.typicode.com",
+			"type": "string"
+		}
+	]
+}
